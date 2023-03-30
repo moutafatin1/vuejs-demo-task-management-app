@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import ButtonGeneric from '@/components/elements/ButtonGeneric.vue'
 import InputField from '@/components/forms/InputField.vue'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
@@ -21,10 +22,6 @@ const onSubmit = handleSubmit((data) => {
   <form @submit="onSubmit">
     <InputField name="username" placeholder="Username" />
     <InputField name="password" type="password" placeholder="Password" />
-    <button
-      class="px-6p rounded-lg bg-teal-600 py-2 font-bold text-white transition hover:opacity-75 active:scale-90"
-    >
-      Submit
-    </button>
+    <ButtonGeneric>Submit</ButtonGeneric>
   </form>
 </template>
