@@ -24,6 +24,6 @@ export default {
       v-model="value"
       v-bind="$attrs"
     />
-    <p v-show="errorMessage">{{ errorMessage }}</p>
+    <p v-show="errorMessage" class="mt-1 text-sm text-red-500">{{ errorMessage }}</p>
   </label>
 </template>

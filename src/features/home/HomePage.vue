@@ -19,9 +19,4 @@ const onSubmit = handleSubmit((data) => {
 </script>
 <template>
   <h1 class="pt-8 text-center text-5xl font-bold text-teal-500">Home Page</h1>
-  <form @submit="onSubmit">
-    <InputField name="username" placeholder="Username" />
-    <InputField name="password" type="password" placeholder="Password" />
-    <ButtonGeneric>Submit</ButtonGeneric>
-  </form>
 </template>
