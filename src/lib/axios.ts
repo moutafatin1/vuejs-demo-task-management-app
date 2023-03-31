@@ -1,3 +1,4 @@
+import type { AuthResponse } from '@/features/auth/api/login'
 import { useAuthStore } from '@/stores/auth'
 import { default as Axios, AxiosError } from 'axios'
 
@@ -14,6 +15,20 @@ api.interceptors.request.use(async (request) => {
   return request
 })
 
+const refreshToken = async () => {
+  const authStore = useAuthStore()
+
+  try {
+    const response = await api.put<AuthResponse>('/auth/tokens', null, {
+      withCredentials: true
+    })
+    authStore.login(response.data)
+  } catch (error) {
+    authStore.logout()
+    throw error
+  }
+}
+
 api.interceptors.response.use(
   (response) => {
     return response
@@ -22,8 +37,19 @@ api.interceptors.response.use(
     if (error instanceof AxiosError) {
       if (error.response?.status === 401) {
         const authStore = useAuthStore()
-        await authStore.refreshToken()
+
+        const response = await fetch('http://127.0.0.1:8000/auth/tokens', {
+          method: 'PUT',
+          credentials: 'include'
+        })
+        if (response.ok) {
+          authStore.login((await response.json()) as AuthResponse)
+        }
+        if (response.status === 401) {
+          authStore.logout()
+        }
       }
     }
+    return Promise.reject(error)
   }
 )

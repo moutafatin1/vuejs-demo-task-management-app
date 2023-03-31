@@ -1,5 +1,4 @@
 import type { AuthResponse } from '@/features/auth/api/login'
-import { api } from '@/lib/axios'
 import router from '@/router'
 import { StorageSerializers, useLocalStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
@@ -20,15 +19,15 @@ export const useAuthStore = defineStore('auth', () => {
     router.push({ name: 'home' })
   }
 
-  const refreshToken = async () => {
-    try {
-      const response = await api.put<AuthResponse>('/auth/tokens', null, { withCredentials: true })
-      login(response.data)
-    } catch (error) {
-      console.log(error)
-      logout()
-    }
-  }
+  // const refreshToken = async () => {
+  //   try {
+  //     const response = await apiWithCredential.put<AuthResponse>('/auth/tokens')
+  //     login(response.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //     logout()
+  //   }
+  // }
 
-  return { state, isLoggedIn, login, logout, refreshToken }
+  return { state, isLoggedIn, login, logout }
 })
