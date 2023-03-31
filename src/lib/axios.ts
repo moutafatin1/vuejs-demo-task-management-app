@@ -1,17 +1,29 @@
 import { useAuthStore } from '@/stores/auth'
-import Axios from 'axios'
+import { default as Axios, AxiosError } from 'axios'
 
 export const api = Axios.create({
-  baseURL: 'http://127.0.0.1:8000',
-  withCredentials: true
+  baseURL: 'http://127.0.0.1:8000'
 })
 
-api.interceptors.request.use((config) => {
+api.interceptors.request.use(async (request) => {
   const authStore = useAuthStore()
-  if (authStore.state?.access_token) {
-    console.log('auth', authStore.state.access_token)
-    config.headers.Authorization = `bearer ${authStore.state?.access_token}`
-  }
 
-  return config
+  if (authStore.state?.access_token) {
+    request.headers.Authorization = `bearer ${authStore.state?.access_token}`
+  }
+  return request
 })
+
+api.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 401) {
+        const authStore = useAuthStore()
+        await authStore.refreshToken()
+      }
+    }
+  }
+)
