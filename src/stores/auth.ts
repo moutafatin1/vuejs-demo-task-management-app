@@ -19,15 +19,22 @@ export const useAuthStore = defineStore('auth', () => {
     router.push({ name: 'home' })
   }
 
-  // const refreshToken = async () => {
-  //   try {
-  //     const response = await apiWithCredential.put<AuthResponse>('/auth/tokens')
-  //     login(response.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //     logout()
-  //   }
-  // }
+  const refreshToken = async () => {
+    const response = await fetch('http://127.0.0.1:8000/auth/tokens', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    if (response.ok) {
+      login((await response.json()) as AuthResponse)
+    }
+    if (response.status === 401) {
+      console.log('response', response)
+      logout()
+    }
+  }
 
-  return { state, isLoggedIn, login, logout }
+  return { state, isLoggedIn, login, logout, refreshToken }
 })

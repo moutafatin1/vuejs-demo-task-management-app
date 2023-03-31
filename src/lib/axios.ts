@@ -37,17 +37,7 @@ api.interceptors.response.use(
     if (error instanceof AxiosError) {
       if (error.response?.status === 401) {
         const authStore = useAuthStore()
-
-        const response = await fetch('http://127.0.0.1:8000/auth/tokens', {
-          method: 'PUT',
-          credentials: 'include'
-        })
-        if (response.ok) {
-          authStore.login((await response.json()) as AuthResponse)
-        }
-        if (response.status === 401) {
-          authStore.logout()
-        }
+        await authStore.refreshToken()
       }
     }
     return Promise.reject(error)
