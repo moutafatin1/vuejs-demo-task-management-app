@@ -22,10 +22,10 @@ export const useAuthStore = defineStore('auth', () => {
   const refreshToken = async () => {
     const response = await fetch('http://127.0.0.1:8000/auth/tokens', {
       method: 'PUT',
-      credentials: 'include',
       headers: {
         Accept: 'application/json'
-      }
+      },
+      credentials: 'include'
     })
     if (response.ok) {
       login((await response.json()) as AuthResponse)
@@ -35,6 +35,16 @@ export const useAuthStore = defineStore('auth', () => {
       logout()
     }
   }
+
+  // const refreshToken = async () => {
+  //   try {
+  //     const response = await authApi.put<AuthResponse>('/auth/tokens')
+  //     login(response.data)
+  //   } catch (error) {
+  //     console.log('error', error)
+  //     logout()
+  //   }
+  // }
 
   return { state, isLoggedIn, login, logout, refreshToken }
 })

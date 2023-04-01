@@ -13,6 +13,6 @@ export async function login(data: LoginDto) {
   const formData = new FormData()
   formData.append('username', data.username)
   formData.append('password', data.password)
-  const response = await api.post<AuthResponse>('/auth/login', formData)
+  const response = await api.post<AuthResponse>('/auth/login', formData, { withCredentials: true })
   return response.data
 }

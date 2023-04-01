@@ -1,10 +1,14 @@
-import type { AuthResponse } from '@/features/auth/api/login'
 import { useAuthStore } from '@/stores/auth'
 import { default as Axios, AxiosError } from 'axios'
 
 export const api = Axios.create({
   baseURL: 'http://127.0.0.1:8000'
 })
+
+// export const authApi = Axios.create({
+//   baseURL: 'http://127.0.0.1:8000',
+//   withCredentials: true
+// })
 
 api.interceptors.request.use(async (request) => {
   const authStore = useAuthStore()
@@ -14,20 +18,6 @@ api.interceptors.request.use(async (request) => {
   }
   return request
 })
-
-const refreshToken = async () => {
-  const authStore = useAuthStore()
-
-  try {
-    const response = await api.put<AuthResponse>('/auth/tokens', null, {
-      withCredentials: true
-    })
-    authStore.login(response.data)
-  } catch (error) {
-    authStore.logout()
-    throw error
-  }
-}
 
 api.interceptors.response.use(
   (response) => {
