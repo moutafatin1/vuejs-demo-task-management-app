@@ -3,13 +3,13 @@
 
 
 ## Tech
-* Vuejs with Typescript
+* VueJs with Typescript
 * Pinia for the auth state
 * Vue Router for multi pages and protected routes
 * Tanstack/vue-query and Axios for api calls
 * Tailwind Css for styling
 * Vee Validate With Zod for form validation
-* Iconfiy Icon for the icons
+* Iconifiy Icon for the icons
 ...
 
 ## Features
