@@ -36,15 +36,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  // const refreshToken = async () => {
-  //   try {
-  //     const response = await authApi.put<AuthResponse>('/auth/tokens')
-  //     login(response.data)
-  //   } catch (error) {
-  //     console.log('error', error)
-  //     logout()
-  //   }
-  // }
-
   return { state, isLoggedIn, login, logout, refreshToken }
 })

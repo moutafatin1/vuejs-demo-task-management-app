@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { TaskDto } from '../api/getTasks'
+import DeleteTask from './DeleteTask.vue'
 
 defineProps<{
   task: TaskDto
@@ -14,10 +15,6 @@ defineProps<{
       :checked="task.completed"
     />
     <span>{{ task.body }}</span>
-    <button
-      class="ml-auto inline-flex rounded-lg text-3xl transition hover:text-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 active:scale-95"
-    >
-      <iconify-icon icon="ic:baseline-delete" />
-    </button>
+    <DeleteTask :id="task.id" />
   </li>
 </template>
