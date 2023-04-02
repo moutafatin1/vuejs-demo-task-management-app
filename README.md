@@ -9,7 +9,7 @@
 * Tanstack/vue-query and Axios for api calls
 * Tailwind Css for styling
 * Vee Validate With Zod for form validation
-* Iconifiy Icon for the icons
+* Iconify Icon for the icons
 ...
 
 ## Features
