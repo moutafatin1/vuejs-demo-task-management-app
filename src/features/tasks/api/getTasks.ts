@@ -8,6 +8,6 @@ export type TaskDto = {
 }
 
 export async function getTasks() {
-  const response = await api.get<TaskDto[]>('/tasks')
+  const response = await api.get<TaskDto[]>('/tasks/')
   return response.data
 }

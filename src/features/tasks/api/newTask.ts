@@ -7,6 +7,6 @@ export type TaskCreateDto = {
 }
 
 export async function newTask(data: TaskCreateDto) {
-  const res = await api.post<TaskDto>('/tasks', data)
+  const res = await api.post<TaskDto>('/tasks/', data)
   return res.data
 }
